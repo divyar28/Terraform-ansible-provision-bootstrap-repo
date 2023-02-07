@@ -1,0 +1,41 @@
+  - name: install openJdk-11
+    ansible.builtin.apt:
+      name: openjdk-11-jdk
+      state: latest
+      install_recommends: no
+
+  - name: create jenkins user on the server
+    ansible.builtin.user:
+      name: jenkins
+      shell: /bin/bash
+      createhome: yes
+
+  - name: ubuntu update packages
+    ansible.builtin.apt:
+      name: "*"
+      state: latest
+
+  - name: ubuntu update cache
+    ansible.builtin.apt:
+      update_cache: yes
+
+  - name: Pass options to dpkg on run
+    ansible.builtin.apt:
+      upgrade: dist
+      update_cache: yes
+      dpkg_options: 'force-confold,force-confdef'
+
+  - name: ensure the jenkins apt repository key is installed
+    apt_key: url=https://pkg.jenkins.io/debian-stable/jenkins.io.key state=present
+    become: yes
+
+  - name: ensure the repository is configured
+    apt_repository: repo='deb https://pkg.jenkins.io/debian-stable binary/' state=present     
+    become: yes
+
+  - name: ensure jenkins is installed
+    apt: name=jenkins update_cache=yes
+    become: yes
+
+  - name: ensure jenkins is running
+    service: name=jenkins state=started

@@ -1,0 +1,9 @@
+---
+- hosts: target
+  become: yes
+  remote_user: ubuntu
+  become_user: root
+
+  tasks:
+    - include_tasks: docker.yml
+    - include_tasks: ubuntujenkins.yml
