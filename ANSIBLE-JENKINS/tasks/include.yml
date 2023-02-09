@@ -7,3 +7,4 @@
   tasks:
     - include_tasks: docker.yml
     - include_tasks: ubuntujenkins.yml
+    - include_tasks: teraforminstall.yml

@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages {
+        stage('Git Clone') {
+            steps{
+                git credentialsId: 'ec2-jenkins-private-key',
+                url: 'git@github.com:divyar28/Terraform-ansible-provision-bootstrap-repo.git'
+             }
+        }
+        stage('Terraform'){
+            steps{
+               dir("ANSIBLE-JENKINS"){
+                    sh '''
+                        ls -ltr
+                    '''
+               }
+            }
+        }
+    }
+}
