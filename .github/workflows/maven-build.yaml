@@ -48,8 +48,8 @@ jobs:
 #        run: mvn package -DskipTests
 
       - name: Set up Docker Buildx
-        working-directory: ./my-java-app
         uses: docker/setup-buildx-action@v2
+        working-directory: ./my-java-app
         with:
           buildkitd-flags: --debug
 
