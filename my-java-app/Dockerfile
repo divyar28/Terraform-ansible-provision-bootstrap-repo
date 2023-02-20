@@ -15,5 +15,4 @@ ENV MAVEN_CONFIG "${USER_HOME_DIR}/.m2"
 
 WORKDIR /app
 COPY . /app
-WORKDIR /app/my-java-app
-RUN mvn package -DskipTests
+RUN /usr/bin/mvn package -DskipTests
