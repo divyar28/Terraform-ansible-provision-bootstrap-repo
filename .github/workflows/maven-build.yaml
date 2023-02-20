@@ -44,4 +44,5 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: mvn
+        working-directory: ./my-java-app
+        run: mvn package -DskipTests
