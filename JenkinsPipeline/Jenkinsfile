@@ -29,7 +29,12 @@ pipeline{
             steps{
             
                dir("my-java-app"){
-                sh 'mvn package -DskipTests'
+		// the below gets directly executed on the jenkins server filesystem
+                //sh 'mvn package -DskipTests'
+		
+		// the below commands builds a my-java-app's docker container and NOT within
+		// Jenkins filesystem
+		 sh 'docker buildx build .'
 
                }
             }
