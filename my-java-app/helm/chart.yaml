@@ -1,0 +1,7 @@
+apiVersion: v1
+name: gatling
+type: application
+version: 0.0.1
+appVersion: "latest"
+
+description: my-java-app for testing k8s job

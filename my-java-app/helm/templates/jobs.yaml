@@ -1,0 +1,44 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "gatling.fullname" . }}
+  namespace: {{ .Values.namespace }}
+  labels:
+{{ include "gatling.labels" . | indent 4 }}
+spec:
+  backoffLimit: {{ .Values.backoffLimit }}
+  parallelism: {{ .Values.parallelism }}
+  completions: {{ .Values.completions }}
+  template:
+    metadata:
+      labels:
+        {{- include "gatling.selectorLabels" . | nindent 8 }}
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+        - image: "{{ .Values.image.repository }}/{{ .Values.name }}:{{ .Values.image.tag }}"
+          name: {{ .Chart.Name }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+          env:
+            - name: TEST_CLASS
+              value: {{ .Values.TEST_CLASS }}
+            {{- with .Values.DOMAIN }}
+            - name: DOMAIN
+              value: {{ .Values.DOMAIN }}
+            {{- end }}
+            {{- with .Values.PROTOCOL }}
+            - name: PROTOCOL
+              value: {{ .Values.PROTOCOL }}
+            {{- end }}
+            {{- with .Values.EXTRA_ENVS }}
+            - name: EXTRA_ENVS
+              value: {{ $.Values.EXTRA_ENVS }}
+            {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: Never
