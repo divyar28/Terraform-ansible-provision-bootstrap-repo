@@ -1,6 +1,5 @@
-(base) sharsha@C02C41X1MD6N gatling % cat values.yaml 
-name: ""
-namespace: gatling
+name: myjavaapp
+namespace: myjavaapp
 
 nameOverride: ""
 fullnameOverride: ""
@@ -13,7 +12,8 @@ parallelism: 1
 completions: 1
 
 image:
-  repository: discovery-wbd-streaming-virtual-docker.jfrog.io/loadtest-gatling
+  repository: test1919.jfrog.io
+  repository_path: docker/hello-world
   tag: 0.0.1
   pullPolicy: IfNotPresent
 

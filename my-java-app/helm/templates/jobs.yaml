@@ -1,18 +1,15 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ template "gatling.fullname" . }}
+  name: {{ .Values.name  }}
   namespace: {{ .Values.namespace }}
-  labels:
-{{ include "gatling.labels" . | indent 4 }}
+
 spec:
   backoffLimit: {{ .Values.backoffLimit }}
   parallelism: {{ .Values.parallelism }}
   completions: {{ .Values.completions }}
   template:
     metadata:
-      labels:
-        {{- include "gatling.selectorLabels" . | nindent 8 }}
       annotations:
         sidecar.istio.io/inject: "false"
     spec:
