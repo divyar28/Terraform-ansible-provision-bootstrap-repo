@@ -74,6 +74,13 @@ jobs:
         with:
           version: 'v3.10.1'
 
+     # Render Helm template
+      - name: Render Helm template
+        working-directory: ./my-java-app/charts
+        run: |
+          helm template -f myjavapp/values.yaml my-java-app-chart ./myjavapp
+          
+
 #     - name: Docker build
 #        uses: docker/build-push-action@v4
 #        with:
