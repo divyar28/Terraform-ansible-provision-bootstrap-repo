@@ -68,15 +68,14 @@ jobs:
           file: my-java-app/Dockerfile
           context: my-java-app
 
+      # setup Helm
+      - name: Setup Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: 'v3.10.1'
+
 #     - name: Docker build
 #        uses: docker/build-push-action@v4
 #        with:
 #          file: my-java-app/Dockerfile
 #          context: my-java-app
-
-     # setup Helm
-       - name: Setup Helm
-         uses: azure/setup-helm@v3
-         with:
-           version: v3.10.1
-
