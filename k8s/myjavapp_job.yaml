@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: myjavapp
+  namespace: myjavapp
+
+spec:
+  backoffLimit: 1
+  parallelism: 1
+  completions: 1
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+        - image: "test1919.jfrog.io/myjavapp/myfirstjavaapp:4c5686d"
+          name: myjavapp
+          imagePullPolicy: IfNotPresent
+          resources:
+            {}
+          env:
+            - name: TEST_CLASS
+              value: HelloWorldJava
+      imagePullSecrets:
+        - name: regcred
+        - name: artifactory-da-reader-token
+
+      restartPolicy: Never
