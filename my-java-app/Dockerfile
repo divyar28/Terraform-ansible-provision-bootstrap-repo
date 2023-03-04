@@ -15,8 +15,8 @@ ENV MAVEN_CONFIG "${USER_HOME_DIR}/.m2"
 
 WORKDIR /app
 COPY . /app
-RUN chmod 755 entrypoint.sh
-
 RUN mvn package -DskipTests
-COPY target/*jar .
-ENTRYPOINT ["/opt/loadtest/entrypoint.sh"]
+
+RUN chmod 755 entrypoint.sh
+WORKDIR target
+ENTRYPOINT ["/app/entrypoint.sh"]

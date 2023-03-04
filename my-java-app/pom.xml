@@ -90,7 +90,7 @@
 
     <build>
         <testSourceDirectory>src/test/scala</testSourceDirectory>
-        <finalName>sre-hello-world-scala</finalName>
+        <finalName>my-java-app</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>

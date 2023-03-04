@@ -37,11 +37,13 @@ jobs:
           ls -ltr
           pwd
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
+#      - name: Set up JDK 17
+#       uses: actions/setup-java@v3
+#        with:
+#         java-version: '17'
+#         distribution: 'temurin'
+      # build the my-java-app with mvn command locally within the 
+      # gha runner
 
 #      - name: Build with Maven
 #        working-directory: ./my-java-app
@@ -58,7 +60,17 @@ jobs:
           registry: test1919.jfrog.io
           username: ${{ secrets.JFROG_USERNAME }}
           password: ${{ secrets.JFROG_PASSWORD }}
+   
+      - name: Get Latest Git commit Hash
+        id: git_commit_hash
+        run: |
+          echo "GIT_COMMIT_HASH=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
+      - name: print Latest Git commit Hash
+        run: |
+          echo ${{ steps.git_commit_hash.outputs.GIT_COMMIT_HASH }}
+          echo "GIT_LATEST_COMMIT=${{ steps.git_commit_hash.outputs.GIT_COMMIT_HAsH }}" >> $GITHUB_ENV
+     
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v4
