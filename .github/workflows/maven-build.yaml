@@ -76,7 +76,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: test1919.jfrog.io/myjavaappdocker/hello-world:3.0.0
+          tags: test1919.jfrog.io/myjavapp/myfirstjavaapp:${{ env.GIT_LATEST_COMMIT }}
           file: my-java-app/Dockerfile
           context: my-java-app
 
