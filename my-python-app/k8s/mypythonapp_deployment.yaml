@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mypythonapp
+  namespace: mypythonapp
+spec:
+  selector:
+    matchLabels:
+      app: mypythonapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mypythonapp
+    spec:
+      containers:
+      - name: mypythonapp
+        image: "k8scloud.jfrog.io/pythondocker/pythonflaskserver:1.0.0"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+      imagePullSecrets:
+      - name: jfrogauth1
