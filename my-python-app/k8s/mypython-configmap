@@ -1,0 +1,6 @@
+        env:
+        - name: USER_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: mypython-configmap
+              key: user.name
