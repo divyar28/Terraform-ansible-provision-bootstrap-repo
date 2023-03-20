@@ -1,0 +1,21 @@
+appname: mypythonapp
+username: "sree harsha"
+replicas: 5
+containerport: 5000
+
+service:
+  port: 8087
+  targetport: 5000
+  nodeport: 30077
+
+redis_host: mypythonapp-redis
+
+#jfrog_registry: k8scloud.jfrog.io
+jfrog:
+  registry: "k8scloud.jfrog.io"
+  repository: pythondocker
+  image_name: pythonflaskserver
+  image_tag: 1.0.0
+  auth:
+    secret_name: jfrogauth1
+    secret_token: "eyJhdXRocyI6eyJrOHNjbG91ZC5qZnJvZy5pbyI6eyJ1c2VybmFtZSI6InNyZWUuYm9wcGFuYUBnbWFpbC5jb20iLCJwYXNzd29yZCI6ImNtVm1kR3R1T2pBeE9qRTNNVEF3T1RnNU16RTZPRkYzVERsVVJHdExTak5RZWtsRWJ6UkdOamszY2pWbGRrUloiLCJlbWFpbCI6InNyZWUuYm9wcGFuYUBnbWFpbC5jb20iLCJhdXRoIjoiYzNKbFpTNWliM0J3WVc1aFFHZHRZV2xzTG1OdmJUcGpiVlp0WkVkMGRVOXFRWGhQYWtVelRWUkJkMDlVWnpWTmVrVTJUMFpHTTFSRWJGVlNSM1JNVTJwT1VXVnJiRVZpZWxKSFRtcHJNMk5xVm14a2ExSmEifX19"

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appname }}
+  namespace: {{ .Values.appname }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appname }}
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appname }}
+
+    spec:
+      containers:
+      - name: {{ .Values.appname }}
+        image: {{ .Values.jfrog.registry }}/{{ .Values.jfrog.repository }}/{{ .Values.jfrog.image_name }}:{{ .Values.jfrog.image_tag }}
+        imagePullPolicy: IfNotPresent
+
+        ports:
+        - containerPort: {{ .Values.containerport }}
+
+        env:
+          - name: USER_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.appname }}-config
+                key: user.name
+
+          - name: REDIS_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Values.appname }}-config
+                key: redis.host
+
+      imagePullSecrets:
+      - name: {{ .Values.jfrog.auth.secret_name }}
